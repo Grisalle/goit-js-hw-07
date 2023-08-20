@@ -24,11 +24,12 @@ const handleListClick = (event) => {
     event.preventDefault();
 
     modalInstance = basicLightbox
-        .create(`<div class="modal"><img src="${event.target.dataset.source}" alt="${event.target.alt}" /></div>`);
+        .create(`<div class="modal"><img src="${event.target.dataset.source}" alt="${event.target.alt}" /></div>`, {
+            onShow: () => { document.addEventListener("keydown", modalClose) },
+            onClose: () => { document.removeEventListener("keydown", modalClose) },
+        });
             
     modalInstance.show();
-
-    document.addEventListener("keydown", modalClose);
 };
 
 const modalClose = (event) => {
